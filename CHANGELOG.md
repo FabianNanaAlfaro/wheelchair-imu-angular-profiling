@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1] — 2026-09-02
+
+- replaced the generic workflow banner on the repository front page with the project's acquisition-protocol figures;
+- added a visible controlled-access contact notice for source-video requests;
+- removed the unused generic pipeline artwork from the public tree; and
+- kept the iSen CSV exports, support workbook, derived public data, and face-obscured protocol stills unchanged.
+
 ## [1.1.0] — 2026-09-02
 
 This is the next public companion version for the presented/submitted manuscript.

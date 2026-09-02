@@ -1,16 +1,55 @@
 # Wheelchair IMU Angular Profiling
 
-![Pipeline overview](assets/pipeline.svg)
-
 [![CI](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml/badge.svg)](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-v1.1.0-0f766e)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/release-v1.1.1-0f766e)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code%20license-MIT-111827)](LICENSE)
 
 Public protocol and reproducibility companion for the analysis of right-upper-limb motion during self-propelled manual-wheelchair propulsion. The workflow combines synchronized videogrammetry/Kinovea support with iSen inertial-sensor exports, signal conditioning, device-defined angular descriptors, phase normalization, and descriptive summaries.
 
-> **Release status — v1.1.0**
+> **Release status — v1.1.1**
 >
 > This is a versioned companion release for a manuscript that has been presented/submitted and is currently under peer review. It documents the engineering workflow and safe public examples; it does not claim article acceptance and does not publish private recordings or consent material.
+
+> **Video access.** The source videos are intentionally not uploaded to GitHub. For a scientifically justified, controlled-access request, contact [Fabian A. Ñaña](mailto:fabian.nana@pucp.edu.pe). Any access remains subject to participant consent, ethics requirements, and the research team's review.
+
+## Acquisition protocol
+
+These are the public-facing figures from the project protocol: the movement lane, camera arrangement, marker placement, inertial-sensor placement, and privacy-reviewed tracking examples. They document how the study was acquired; they are not stock workflow artwork and they do not expose the source recordings.
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="assets/protocol/acquisition-area-layout.png" alt="Acquisition area and camera arrangement" width="100%" />
+      <br /><sub><strong>Study geometry.</strong> Delimited movement lane and camera positions.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="assets/protocol/camera-setup-floor.png" alt="Two-camera acquisition setup" width="100%" />
+      <br /><sub><strong>Camera setup.</strong> Frontal and sagittal views around the lane.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="assets/protocol/marker-placement-diagram.png" alt="Reflective marker placement diagram" width="100%" />
+      <br /><sub><strong>Marker placement.</strong> Reflective landmarks used for videogrammetry.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="assets/protocol/imu-placement-diagram.png" alt="Inertial sensor placement diagram" width="100%" />
+      <br /><sub><strong>IMU placement.</strong> Sensor locations used for the inertial signal.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="assets/protocol/tracking-frontal-obscured.png" alt="Face-obscured frontal tracking still" width="100%" />
+      <br /><sub><strong>Frontal tracking.</strong> Static, face-obscured protocol illustration.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="assets/protocol/tracking-sagittal-obscured.png" alt="Face-obscured sagittal tracking still" width="100%" />
+      <br /><sub><strong>Sagittal tracking.</strong> Static, face-obscured protocol illustration.</sub>
+    </td>
+  </tr>
+</table>
+
+For dimensions, equipment, task repetitions, and the public/private boundary, see the [full acquisition protocol](docs/acquisition_protocol.md).
 
 ## What this repository makes reproducible
 
@@ -69,7 +108,6 @@ The event windows remain explicit inputs because cycle-boundary review was suppo
 
 ```text
 assets/
-  pipeline.svg                    Public workflow graphic
   protocol/                       Cropped, privacy-reviewed protocol figures
 codes/
   matlab/                         Cleaned MATLAB reference scripts
@@ -123,7 +161,7 @@ Requests for controlled access to source video should be sent to [fabian.nana@pu
 
 Use the versioned citation in [`CITATION.cff`](CITATION.cff). A compact reference is:
 
-> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU Angular Profiling* (Version 1.1.0) [Code and de-identified support materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
+> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU Angular Profiling* (Version 1.1.1) [Code and de-identified support materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
 
 The associated manuscript is not assigned a DOI in this repository while peer review is ongoing. Do not invent a DOI or cite this repository as evidence of article acceptance.
 
