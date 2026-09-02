@@ -1,0 +1,47 @@
+# Python and local environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# Generated demo and analysis outputs
+outputs/
+examples/synthetic/outputs/
+work/
+*.log
+
+# Local research material: never stage these by accident
+raw/
+private/
+videos/
+recordings/
+**/*.mp4
+**/*.mov
+**/*.avi
+**/*.mkv
+**/*.mts
+**/*.MTS
+**/*.kva
+**/*.mat
+**/*.cal
+**/*.dat
+**/*.3d
+**/*.mlx
+**/*.pbix
+**/*.docx
+**/*.pptx
+**/*.zip
+**/*.rar
+
+# Keep only the reviewed public workbook.
+*.xlsx
+*.xls
+!data/profiling_data.xlsx
+
+# Keep the already-public iSen exports and the generated demo CSV.
+*.csv
+!data/iSen/**/*.csv
+!examples/synthetic/imu_trial.csv

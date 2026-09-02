@@ -12,10 +12,9 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-The license applies to the analysis code and software documentation included
-in this repository. Anonymized research data are provided only to support
-reproducibility of the associated study and do not include raw videos or
-potentially identifiable visual materials.
+The license applies to the analysis code, scripts, and documentation included
+in this repository. It does not change the separate privacy, reuse, or access
+conditions described for de-identified research data in docs/public_data.md.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,

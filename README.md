@@ -1,91 +1,140 @@
 # Wheelchair IMU Angular Profiling
 
-This repository contains analysis code and anonymized support data associated with a preliminary study on IMU-derived upper-limb angular profiling during controlled short-distance manual wheelchair propulsion.
+![Pipeline overview](assets/pipeline.svg)
 
-The study included 10 adult manual wheelchair users who performed controlled straight overground propulsion trials using their personal wheelchairs. IMU data were acquired from the right upper limb and trunk reference during the task, and synchronized video recordings were used only for protocol documentation, cycle-boundary confirmation, quality control, and contextual propulsion-style review.
+[![CI](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml/badge.svg)](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/badge/release-v1.1.0-0f766e)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/code%20license-MIT-111827)](LICENSE)
 
-The study was developed at the Laboratorio de Investigación en Biomecánica y Rehabilitación Aplicada (LIBRA), Pontificia Universidad Católica del Perú (PUCP), by F. Ñaña, F. Nava, V. Abarca, and D. A. Elias. Data collection was conducted between January and April 2025 under ethical approval No. 143-2024-CEICVyT/PUCP.
+Public protocol and reproducibility companion for the analysis of right-upper-limb motion during self-propelled manual-wheelchair propulsion. The workflow combines synchronized videogrammetry/Kinovea support with iSen inertial-sensor exports, signal conditioning, device-defined angular descriptors, phase normalization, and descriptive summaries.
 
-The shared materials are intended to support reproducibility of the reported tables, figures, and descriptive analyses. Raw videos and potentially identifiable visual materials are not included due to participant privacy considerations.
+> **Release status — v1.1.0**
+>
+> This is a versioned companion release for a manuscript that has been presented/submitted and is currently under peer review. It documents the engineering workflow and safe public examples; it does not claim article acceptance and does not publish private recordings or consent material.
 
-## Repository contents
+## What this repository makes reproducible
 
-The repository is organized as follows:
+- the public-facing MATLAB and Python processing code;
+- the acquisition geometry and sensor-placement protocol;
+- the filtering, alignment, derivative, and phase-normalization decisions;
+- a deterministic synthetic trial that runs end to end without private files;
+- de-identified iSen exports and a de-identified support workbook already prepared for public release.
 
-```text
-codes/
-  Analysis scripts and cleaned code used for IMU processing, pattern extraction,
-  descriptive summaries, and figure generation.
+The public tree deliberately excludes source videos, exported video files, un-obscured participant photographs, consent/recruitment forms, QR codes or phone numbers, calibration artefacts, and local computer paths. The supplied DPB4 presentation is not redistributed; only protocol figures that were reviewed and cropped for this repository are included. A small number of face-obscured tracking stills are retained solely as protocol illustrations; they are not source video or a results release.
 
-data/
-  Anonymized support data used to reproduce the reported descriptive analyses.
+## Start here
 
-data/iSen/
-  De-identified iSen data files for the 10 participants included in the study.
+### Run the public demo
 
-data/profiling_data.xlsx
-  Anonymized support workbook containing participant-level profiling data,
-  traceability information, and video-supported review information used to
-  document the analysis process.
+The demo creates a synthetic iSen-like trial, estimates a device-defined angle, applies a fourth-order zero-phase Butterworth low-pass filter, computes angular velocity and acceleration, normalizes propulsion and recovery to 100 points each, and writes a manifest plus summary files.
+
+Use Python 3.10 or newer.
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python scripts\run_public_demo.py
 ```
 
-## Data description
+Outputs are written to `examples/synthetic/outputs/` and are ignored by Git. The input file in `examples/synthetic/imu_trial.csv` is generated data, not a participant record.
 
-The shared data include anonymized IMU-derived files and support spreadsheets related to the 10 participants included in the study. These files were prepared to support reproducibility of:
+### Verify the release locally
 
-* retained-cycle inspection and traceability;
-* participant-level angular profiling;
-* descriptive angular-excursion summaries;
-* figure and table generation;
-* contextual video-supported review of propulsion patterns.
+```powershell
+python -m unittest discover -s tests -v
+python scripts\audit_public_release.py
+```
 
-All quantitative angular variables reported in the associated manuscript were derived from IMU outputs. The video-supported review was used only as methodological support to confirm task execution, cycle boundaries, quality-control decisions, and contextual propulsion-style classification.
+The same checks run in GitHub Actions for every push and pull request.
 
-## Code description
+## Workflow at a glance
 
-The `codes/` folder contains cleaned analysis scripts used to support the processing and visualization workflow. These scripts include MATLAB and Python files for:
+```mermaid
+flowchart LR
+    A[Protocol setup<br/>6 m × 1.5 m lane] --> B[Frontal + sagittal video<br/>and iSen acquisition]
+    B --> C[Local export<br/>CSV / Kinovea tables]
+    C --> D[Time checks<br/>synchronization + QC]
+    D --> E[Butterworth LPF<br/>fc 6 Hz · order 4]
+    E --> F[Device-defined<br/>angular descriptor]
+    F --> G[Velocity +<br/>acceleration]
+    G --> H[Propulsion / recovery<br/>explicit windows]
+    H --> I[100-point temporal<br/>normalization]
+    I --> J[Metrics + manifest<br/>reproducible outputs]
+```
 
-* processing iSen-derived angular signals;
-* extracting and visualizing propulsion patterns;
-* comparing IMU-derived profiles with video-supported/Kinovea-assisted review;
-* generating descriptive summaries and figures;
-* documenting the processing workflow used in the manuscript.
+The event windows remain explicit inputs because cycle-boundary review was supported by synchronized video and signal inspection. This public release does not pretend that a manual quality-control decision is an automatic detector.
 
-The code is provided to support transparency and reproducibility of the reported descriptive analyses. It is not intended as a standalone validated clinical software package.
+## Repository map
 
-## Privacy and anonymization
+```text
+assets/
+  pipeline.svg                    Public workflow graphic
+  protocol/                       Cropped, privacy-reviewed protocol figures
+codes/
+  matlab/                         Cleaned MATLAB reference scripts
+  python/                         Legacy/support utilities retained for continuity
+  notebooks/                      Cleaned exploratory notebooks
+data/
+  iSen/                           De-identified iSen CSV exports
+  profiling_data.xlsx             De-identified support workbook
+docs/
+  acquisition_protocol.md         Setup, equipment, and safe visual documentation
+  processing_pipeline.md          Algorithms, schemas, and parameter choices
+  public_data.md                  Public data card and boundaries
+examples/synthetic/
+  imu_trial.csv                   Deterministic generated input
+src/wheelchair_pipeline/          Tested Python reference implementation
+scripts/                          Demo runner and public-release audit
+tests/                            Offline smoke tests
+```
 
-The repository does not include raw videos, identifiable images, names, personal identifiers, or other potentially identifiable visual materials. Participants are represented using anonymized codes. The shared files were prepared for reproducibility while minimizing the risk of participant re-identification.
+## Method notes
 
-Because the study involved a small cohort of manual wheelchair users, raw videos and potentially identifiable visual recordings are not publicly shared.
+The primary quantitative descriptors in the study were derived from iSen outputs. Kinovea/videogrammetry supports protocol documentation, cycle-boundary confirmation, quality control, and contextual review; it is not silently substituted for the iSen angle calculation.
 
-## Authors
+The public Python implementation exposes the same engineering stages with explicit configuration:
 
-Fabian A. Ñaña, Fabricio Nava, Victoria E. Abarca, and Dante A. Elias.
+- time is read from the exported signal and checked for monotonic sampling;
+- X/Y components are low-pass filtered with a fourth-order Butterworth filter at 6 Hz;
+- the relevant component can be selected by an explicit pair or by a documented keyword match;
+- a neutral window defines the reference offset;
+- numerical derivatives are computed against the recorded time vector;
+- phase windows are normalized by interpolation to 100 points per phase;
+- outputs carry a JSON manifest so parameters are inspectable after a run.
 
-All authors are affiliated with the Laboratorio de Investigación en Biomecánica y Rehabilitación Aplicada (LIBRA), Pontificia Universidad Católica del Perú (PUCP), Lima, Peru.
+Angles are **device-defined angular descriptors**. They should not be presented as anatomically calibrated joint angles without an additional calibration and validation procedure.
 
-## Ethical approval
+## Public data and privacy
 
-This study was approved by the Research Ethics Committee for Life Sciences and Technologies of the Pontificia Universidad Católica del Perú.
+The current public data are de-identified iSen exports and a de-identified support workbook. They are kept because they are the public reproducibility materials for this project. They do not include raw video files. Please read [`docs/public_data.md`](docs/public_data.md) before downloading or reusing them.
 
-Approval number: 143-2024-CEICVyT/PUCP.
+Requests for controlled access to source video should be sent to [fabian.nana@pucp.edu.pe](mailto:fabian.nana@pucp.edu.pe). Any access remains subject to participant consent, ethics requirements, and the research team's review; this repository does not distribute video through GitHub.
 
-## How to cite
+## People and research context
 
-If you use this repository, please cite it as follows.
+**Authors:** Fabian A. Ñaña, Fabricio Nava, Victoria E. Abarca, and Dante A. Elias.
 
-### APA 7th edition
+**Laboratory:** Laboratorio de Investigación en Biomecánica y Rehabilitación Aplicada (LIBRA), Pontificia Universidad Católica del Perú (PUCP), Lima, Peru.
 
-Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU angular profiling* (Version 1.0.0) [Data set and code]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
+**Ethics reference:** 143-2024-CEICVyT/PUCP. No consent forms or ethics documents are included in this repository.
 
-### IEEE
+## Citation
 
-F. A. Ñaña, F. Nava, V. E. Abarca, and D. A. Elias, “Wheelchair IMU angular profiling,” GitHub repository, version 1.0.0, 2026. [Online]. Available: https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
+Use the versioned citation in [`CITATION.cff`](CITATION.cff). A compact reference is:
 
-## Related manuscript
+> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU Angular Profiling* (Version 1.1.0) [Code and de-identified support materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
 
-This repository supports a preliminary manuscript on IMU-derived upper-limb angular profiling during controlled short-distance manual wheelchair propulsion in a heterogeneous Peruvian cohort.
+The associated manuscript is not assigned a DOI in this repository while peer review is ongoing. Do not invent a DOI or cite this repository as evidence of article acceptance.
 
-A full citation to the manuscript will be added once the article is published or available as a preprint.
+## Related documentation
 
+- [Acquisition protocol](docs/acquisition_protocol.md)
+- [Processing pipeline](docs/processing_pipeline.md)
+- [Public data card](docs/public_data.md)
+- [Code guide](codes/README_CODE.md)
+- [Changelog](CHANGELOG.md)
+
+## License
+
+The MIT license applies to the code and documentation. The de-identified research data remain subject to the permissions and conditions described in [`docs/public_data.md`](docs/public_data.md).
