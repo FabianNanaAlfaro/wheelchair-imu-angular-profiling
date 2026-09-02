@@ -11,7 +11,7 @@
 %
 % Notes
 % -----
-% - Inputs should be de-identified and use participant codes such as P01-P10.
+% - Inputs should be de-identified and use local trial codes only.
 % - The expected columns are:
 %       Porcentaje, Hombro_FE, Hombro_Abd, Codo_FE, Muneca_FE, Muneca_UD
 % - Variables are device-defined IMU angular descriptors, not anatomically

@@ -8,11 +8,12 @@
 % X/Y angle calculation with the corrected neutral-window and component-based
 % procedure implemented in compute_isen_angle_from_csv.m.
 %
-% Participant-specific rule
-% -------------------------
-% - P01-P08: use mode = 'axis_offset'.
-% - P09-P10: use mode = 'direct_resultant' when the resultant angle is already
-%   available in the iSen export.
+% Mode rule
+% ---------
+% Use 'axis_offset' when the export contains the component pair used by the
+% descriptor. Use 'direct_resultant' only when the export already contains a
+% validated resultant angle column. Keep that choice in the manifest/log of
+% the local run.
 %
 % Manual pattern separation was performed after this step by visual inspection
 % of the corrected iSen signals and synchronized video support.
@@ -20,9 +21,9 @@
 clear; clc; close all;
 
 %% ================= USER SETTINGS =================
-participantID = "P08";
-rawCsvFile = "../data/raw_isen/P08.csv";  % Edit this path locally.
-outputFolder = fullfile(pwd, '..', 'outputs', 'isen_patterns');
+trialID = "DEMO";
+rawCsvFile = "../../examples/synthetic/imu_trial.csv";  % Replace locally.
+outputFolder = fullfile(pwd, '..', '..', 'outputs', 'isen_patterns');
 if ~exist(outputFolder, 'dir'), mkdir(outputFolder); end
 
 % Final descriptors to compute.
@@ -39,16 +40,12 @@ targetNeutral = containers.Map( ...
 scaleMap = containers.Map(angleKeys, [1, 1, 1, 1, 0.5]);
 offsetMap = containers.Map(angleKeys, [0, 0, 0, 0, 0]);
 
-% Participant-specific mode. Use direct_resultant for P09-P10 if available.
-if ismember(participantID, ["P09", "P10"])
-    defaultMode = "direct_resultant";
-else
-    defaultMode = "axis_offset";
-end
+% Public demo uses the component + neutral-window workflow.
+defaultMode = "axis_offset";
 
 %% ================= COMPUTE ISEN ANGLES =================
 results = struct();
-figure('Name', participantID + " corrected iSen patterns", 'Color', 'w', 'Position', [100 80 1000 720]);
+figure('Name', trialID + " corrected iSen patterns", 'Color', 'w', 'Position', [100 80 1000 720]);
 tiledlayout(numel(angleKeys), 1, 'TileSpacing', 'compact');
 
 for k = 1:numel(angleKeys)
@@ -81,7 +78,7 @@ for k = 1:numel(angleKeys)
     end
 end
 xlabel('Time (s)');
-exportgraphics(gcf, fullfile(outputFolder, participantID + "_corrected_isen_patterns.png"), 'Resolution', 300);
+exportgraphics(gcf, fullfile(outputFolder, trialID + "_corrected_isen_patterns.png"), 'Resolution', 300);
 
 %% ================= SAVE RESULTS =================
 angleTable = table();
@@ -94,5 +91,5 @@ for k = 1:numel(angleKeys)
         angleTable = [angleTable; temp]; %#ok<AGROW>
     end
 end
-writetable(angleTable, fullfile(outputFolder, participantID + "_corrected_isen_angles.csv"));
-fprintf('Corrected iSen angle table saved for %s.\n', participantID);
+writetable(angleTable, fullfile(outputFolder, trialID + "_corrected_isen_angles.csv"));
+fprintf('Corrected iSen angle table saved for %s.\n', trialID);

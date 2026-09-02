@@ -10,7 +10,7 @@ function result = compute_isen_angle_from_csv(csvFile, angleKey, options)
 % Usage
 % -----
 %   options = struct();
-%   options.mode = 'axis_offset';          % P01-P08 final workflow
+%   options.mode = 'axis_offset';          % component + neutral-window workflow
 %   options.fc = 6;
 %   options.order = 4;
 %   options.neutralWindow = [0.2 1.0];
@@ -19,9 +19,9 @@ function result = compute_isen_angle_from_csv(csvFile, angleKey, options)
 %   options.scale = 1;
 %   options.offset = 0;
 %   options.pairBase = '';                 % optional manual pair base
-%   result = compute_isen_angle_from_csv('P01.csv','elbow_fe',options);
+%   result = compute_isen_angle_from_csv('trial.csv','elbow_fe',options);
 %
-% For P09-P10, use:
+% If the export already contains a resultant angle, use:
 %   options.mode = 'direct_resultant';
 %   options.directColumn = 'ResultantAngle';
 %
