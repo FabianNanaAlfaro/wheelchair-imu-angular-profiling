@@ -1,11 +1,11 @@
 function result = compute_isen_angle_from_csv(csvFile, angleKey, options)
 % compute_isen_angle_from_csv
-% Corrected iSen angle extraction helper used for final pattern generation.
+% Public iSen angle extraction helper for device-defined descriptors.
 %
-% This function implements the cleaned version of the final iSen-processing
-% workflow. It avoids the older exploratory atan2(X,Y) approach used in early
-% comparisons and instead estimates the angle from the selected iSen exported
-% component after neutral-window alignment.
+% The function estimates a descriptor from a selected exported component after
+% neutral-window alignment, or filters an existing resultant-angle column.
+% The default settings belong to the public reference implementation; the
+% manuscript-related configuration is documented in docs/manuscript_analysis.md.
 %
 % Usage
 % -----
@@ -28,7 +28,7 @@ function result = compute_isen_angle_from_csv(csvFile, angleKey, options)
 % Output
 % ------
 %   result.time       Time vector in seconds.
-%   result.angle      Corrected device-defined angular descriptor.
+%   result.angle      Device-defined angular descriptor.
 %   result.axisUsed   Selected component ('X','Y', or direct column name).
 %   result.fs         Estimated sampling frequency.
 

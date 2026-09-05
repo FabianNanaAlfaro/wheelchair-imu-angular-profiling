@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 """iSen CSV batch processing utility.
 
-This script provides a cleaned, public-facing version of the exploratory iSen
-processing workflow. It reads de-identified iSen CSV files, applies low-pass
-filtering, computes exploratory angular descriptors from X/Y pairs, and exports
-plots and optional processed CSV files.
-
-Important
----------
-The final manuscript angular variables should be generated using the corrected
-MATLAB workflow when reproducing the reported iSen patterns. This Python script
-is included as an exploratory/support utility.
+This script is a batch utility for exploratory inspection of exported iSen
+signals. It reads de-identified CSV files, applies low-pass filtering, computes
+angle descriptors from X/Y pairs, and exports plots and optional processed CSV
+files. It belongs to the study's development and support layer; the tested
+public reference implementation is documented separately.
 """
 
 from __future__ import annotations
@@ -52,11 +47,7 @@ def get_time_vector(df: pd.DataFrame) -> Tuple[np.ndarray, float]:
 
 
 def compute_exploratory_angles(df: pd.DataFrame, cutoff_hz: float = 6.0) -> Dict[str, pd.DataFrame]:
-    """Compute exploratory angles from *_X and *_Y pairs.
-
-    This is not the final corrected method used for the manuscript patterns. It
-    is kept as a support utility for exploratory inspection of exported signals.
-    """
+    """Compute exploratory device-defined descriptors from *_X and *_Y pairs."""
     time, fs = get_time_vector(df)
     columns = list(df.columns)
     x_cols = [c for c in columns if str(c).endswith("_X")]
@@ -95,7 +86,7 @@ def process_folder(input_folder: Path, output_folder: Path, cutoff_hz: float) ->
             ax.plot(out_df["time_s"], out_df["angle_deg"], linewidth=1.2)
             ax.set_title(f"{csv_path.stem} | {angle_name}")
             ax.set_xlabel("Time (s)")
-            ax.set_ylabel("Exploratory angle (deg)")
+            ax.set_ylabel("Exploratory device-defined angle (deg)")
             ax.grid(True)
             fig.tight_layout()
             fig.savefig(plot_folder / f"{safe_name}.png", dpi=300)

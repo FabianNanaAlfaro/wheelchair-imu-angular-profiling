@@ -1,12 +1,11 @@
 %% codigo_fin_clean.m
-% Corrected final iSen pattern extraction workflow.
+% iSen pattern extraction workflow.
 %
 % Purpose
 % -------
-% This script computes the final device-defined iSen angular descriptors used
-% for propulsion-pattern inspection. It replaces the older exploratory atan2
-% X/Y angle calculation with the corrected neutral-window and component-based
-% procedure implemented in compute_isen_angle_from_csv.m.
+% This script computes device-defined iSen angular descriptors for
+% propulsion-pattern inspection using component selection and neutral-window
+% alignment from compute_isen_angle_from_csv.m.
 %
 % Mode rule
 % ---------
@@ -15,28 +14,30 @@
 % validated resultant angle column. Keep that choice in the manifest/log of
 % the local run.
 %
-% Manual pattern separation was performed after this step by visual inspection
-% of the corrected iSen signals and synchronized video support.
+% Pattern windows can be reviewed against the iSen signals and synchronized
+% video support before a local summary is produced.
 
 clear; clc; close all;
 
 %% ================= USER SETTINGS =================
+scriptFolder = fileparts(mfilename('fullpath'));
+repoRoot = fullfile(scriptFolder, '..', '..');
 trialID = "DEMO";
-rawCsvFile = "../../examples/synthetic/imu_trial.csv";  % Replace locally.
-outputFolder = fullfile(pwd, '..', '..', 'outputs', 'isen_patterns');
+rawCsvFile = fullfile(repoRoot, 'examples', 'synthetic', 'imu_trial.csv');  % Replace locally.
+outputFolder = fullfile(repoRoot, 'outputs', 'isen_patterns');
 if ~exist(outputFolder, 'dir'), mkdir(outputFolder); end
 
-% Final descriptors to compute.
+% Descriptors to compute.
 angleKeys = ["hombro_fe", "hombro_abd", "codo_fe", "muneca_fe", "muneca_ud"];
 
 % Neutral targets used for display alignment. These values should be adjusted
-% only if the final documented workflow requires it.
+% only when the documented local workflow requires it.
 targetNeutral = containers.Map( ...
     {'hombro_fe','hombro_abd','codo_fe','muneca_fe','muneca_ud'}, ...
     {0, 90, 0, 15, 0});
 
-% Final manual scaling/offset parameters. Keep scale=1 and offset=0 unless a
-% documented final adjustment was made during signal review.
+% Manual scaling/offset parameters. Keep scale=1 and offset=0 unless a
+% documented local adjustment is required.
 scaleMap = containers.Map(angleKeys, [1, 1, 1, 1, 0.5]);
 offsetMap = containers.Map(angleKeys, [0, 0, 0, 0, 0]);
 
@@ -45,7 +46,7 @@ defaultMode = "axis_offset";
 
 %% ================= COMPUTE ISEN ANGLES =================
 results = struct();
-figure('Name', trialID + " corrected iSen patterns", 'Color', 'w', 'Position', [100 80 1000 720]);
+figure('Name', trialID + " iSen patterns", 'Color', 'w', 'Position', [100 80 1000 720]);
 tiledlayout(numel(angleKeys), 1, 'TileSpacing', 'compact');
 
 for k = 1:numel(angleKeys)
@@ -78,7 +79,7 @@ for k = 1:numel(angleKeys)
     end
 end
 xlabel('Time (s)');
-exportgraphics(gcf, fullfile(outputFolder, trialID + "_corrected_isen_patterns.png"), 'Resolution', 300);
+exportgraphics(gcf, fullfile(outputFolder, trialID + "_isen_patterns.png"), 'Resolution', 300);
 
 %% ================= SAVE RESULTS =================
 angleTable = table();
@@ -91,5 +92,5 @@ for k = 1:numel(angleKeys)
         angleTable = [angleTable; temp]; %#ok<AGROW>
     end
 end
-writetable(angleTable, fullfile(outputFolder, trialID + "_corrected_isen_angles.csv"));
-fprintf('Corrected iSen angle table saved for %s.\n', trialID);
+writetable(angleTable, fullfile(outputFolder, trialID + "_isen_angles.csv"));
+fprintf('iSen angle table saved for %s.\n', trialID);

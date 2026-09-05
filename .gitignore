@@ -2,10 +2,24 @@
 .venv/
 venv/
 __pycache__/
+**/__pycache__/
 *.py[cod]
 .pytest_cache/
 .mypy_cache/
 *.egg-info/
+.ipynb_checkpoints/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.autosave
+*.swp
+*.swo
+.env
+.env.*
+!.env.example
 
 # Generated demo and analysis outputs
 outputs/

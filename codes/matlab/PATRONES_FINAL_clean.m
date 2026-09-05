@@ -1,9 +1,9 @@
 %% PATRONES_FINAL_clean.m
-% Publication-style plots and summary tables for wheelchair IMU angular profiles.
+% Profile plots and summary tables for wheelchair IMU angular profiles.
 %
 % Purpose
 % -------
-% This script reads finalized participant-level angle files and generates:
+% This script reads participant-level angle files and generates:
 %   1) participant-level angular profile figures,
 %   2) cohort-level boxplots,
 %   3) descriptive summary tables,
@@ -20,11 +20,13 @@
 clear; clc; close all;
 
 %% ================= USER SETTINGS =================
-inputFolder  = fullfile(pwd, '..', 'data');       % Edit if needed
-outputFolder = fullfile(pwd, '..', 'outputs');    % Figures and tables are saved here
+scriptFolder = fileparts(mfilename('fullpath'));
+repoRoot = fullfile(scriptFolder, '..', '..');
+inputFolder  = fullfile(repoRoot, 'data');        % Edit if needed
+outputFolder = fullfile(repoRoot, 'outputs');     % Figures and tables are saved here
 if ~exist(outputFolder, 'dir'), mkdir(outputFolder); end
 
-% Accept both XLSX and CSV finalized participant profiles.
+% Accept both XLSX and CSV participant profiles.
 fileList = [dir(fullfile(inputFolder, '*.xlsx')); dir(fullfile(inputFolder, '*.csv'))];
 fileList = fileList(~startsWith({fileList.name}, '~$'));
 
@@ -41,7 +43,7 @@ participantLabels = strings(numel(fileList),1);
 allROM = table();
 profileData = struct();
 
-%% ================= READ FINALIZED ANGLE FILES =================
+%% ================= READ ANGLE FILES =================
 for i = 1:numel(fileList)
     filePath = fullfile(fileList(i).folder, fileList(i).name);
     [~, baseName, ext] = fileparts(filePath);
