@@ -1,0 +1,11 @@
+participant_id,detected_cycles,retained_cycles,not_retained_cycles,retained_percent
+P1,15,8,7,53.3
+P2,21,8,13,38.1
+P3,10,8,2,80.0
+P4,32,8,24,25.0
+P5,17,8,9,47.1
+P6,18,8,10,44.4
+P7,19,8,11,42.1
+P8,10,8,2,80.0
+P9,23,8,15,34.8
+P10,22,8,14,36.4

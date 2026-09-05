@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.6] — 2026-09-05
+
+- Corrected manuscript-supporting analytical data provenance.
+- Added numerical validation of the participant-level excursion and cohort summary references.
+- Added participant-level cycle-traceability counts and clarified unavailable profile/cycle-level data.
+
 ## [1.1.5] — 2026-09-05
 
 - Added a dedicated manuscript-supporting analytical data layer.

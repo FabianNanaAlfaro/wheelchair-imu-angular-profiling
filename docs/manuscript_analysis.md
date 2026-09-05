@@ -30,7 +30,7 @@ The manuscript-related configuration consists of:
 - participant-level angular-excursion computation; and
 - descriptive summaries of the participant-level outputs.
 
-The de-identified materials and study workflow files available here support inspection of the relevant processing stages. Restricted study records are not required to understand the documented configuration, but their absence means that this repository does not claim complete reconstruction from original acquisition through every reported result.
+The public manuscript-supporting files expose the participant-level excursion inputs and cycle-count traceability used by the reproduction entry point. They do not contain cycle-level boundaries or normalized profile traces, so this repository does not claim complete reconstruction from original acquisition through every reported result.
 
 ## Statistical analysis
 

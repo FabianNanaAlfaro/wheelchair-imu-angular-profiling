@@ -8,7 +8,7 @@ The public release contains de-identified iSen exports, a support workbook, and 
 | --- | --- | --- |
 | `data/iSen/` | De-identified iSen CSV exports organised by coded trial folders. | Signal exports only; no direct identifiers. |
 | `data/profiling_data.xlsx` | De-identified general iSen workbook with coded participant metadata and derived summaries. | No names, contact details, consent forms, or restricted acquisition records. |
-| `data/manuscript/` | De-identified participant-level descriptor and excursion files supporting the manuscript-related summaries. | Derived analytical summaries only; no cycle-level records or restricted acquisition files. |
+| `data/manuscript/` | De-identified participant-level excursion and cycle-count files supporting the manuscript-related summaries. | Derived analytical summaries only; no cycle-level records or restricted acquisition files. |
 | `examples/synthetic/` | Generated demonstration input and instructions. | Contains no participant provenance. |
 
 ## Not included

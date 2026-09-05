@@ -2,14 +2,14 @@
 
 ## Scope
 
-This directory contains de-identified public analytical files supporting the reported manuscript-level summaries. Values are derived from the public iSen summary layer and are provided for transparent inspection of participant-level descriptors and angular excursions.
+This directory contains the de-identified public analytical files supporting the reported manuscript-level excursion summaries and cycle-count traceability. The manuscript cohort contains exactly ten coded participants, `P1` through `P10`.
 
 ## Files
 
-- `participant_level_descriptors.csv`: long-format participant-level descriptors. Each row represents one participant and descriptor; values are summary outputs, not cycle-level records. Participants are represented by coded labels such as `P01`.
-- `participant_level_excursions.csv`: wide-format participant-level angular excursions in degrees, derived from the corresponding descriptor maxima and minima.
+- `participant_level_excursions.csv`: one row per participant and five angular-excursion variables, in degrees.
+- `cycle_traceability.csv`: one row per participant with detected, retained, and not-retained cycle counts. It contains counts only; no individual cycle identifiers are asserted.
 
-Cycle-level boundaries, retained-cycle identifiers, and normalized profile traces are not included because they cannot be reconstructed confidently from the public summary layer. No synthetic cycle traceability is presented.
+Normalized participant mean trajectories and retained-cycle records are not included because their underlying public analytical values cannot be recovered confidently. No synthetic profiles or cycle identifiers are provided.
 
 ## Processing relationship
 
@@ -24,8 +24,8 @@ python -m pip install -r requirements.txt
 python scripts\reproduce_manuscript_outputs.py --check
 ```
 
-This regenerates participant-level descriptive summaries, angular-excursion summaries, and an exploratory Spearman correlation matrix under `outputs/manuscript_reproduction/`.
+This regenerates the participant-level excursion table, cohort-level summary, exploratory Spearman matrix, and cycle-traceability summary under `outputs/manuscript_reproduction/`.
 
 ## Boundaries
 
-Restricted acquisition media are not required for the public reproduction of the derived analytical summaries provided here. The workflow does not claim complete reconstruction of every acquisition-to-result step or unavailable profile figure.
+Restricted acquisition media are not required for the public reproduction of the derived analytical summaries provided here. The workflow does not claim complete reconstruction of unavailable profile figures or individual retained-cycle records.

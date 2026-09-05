@@ -1,12 +1,12 @@
 # Wheelchair IMU General Database & Analysis Companion
 
 [![CI](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml/badge.svg)](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-v1.1.5-0f766e)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/release-v1.1.6-0f766e)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code%20license-MIT-111827)](LICENSE)
 
 Public de-identified iSen database and analysis companion for upper-limb motion during self-propelled manual-wheelchair propulsion. The repository combines general research materials, analysis utilities, a tested Python reference implementation, MATLAB templates, and synthetic examples.
 
-> **Release status — v1.1.5**
+> **Release status — v1.1.6**
 >
 > This repository documents the broader study database and computational workflow. The analysis associated with the paper is described separately so that its configuration is not confused with the other research and development components.
 
@@ -81,7 +81,7 @@ The public tree contains no source acquisition recordings, signed forms, direct 
 
 Use the versioned citation in [`CITATION.cff`](CITATION.cff):
 
-> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU General Database & Analysis Companion* (Version 1.1.5) [Software and de-identified research materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
+> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU General Database & Analysis Companion* (Version 1.1.6) [Software and de-identified research materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
 
 No article DOI is asserted by this repository. Add an article DOI only when it has been formally assigned by the publisher or indexing service.
 
