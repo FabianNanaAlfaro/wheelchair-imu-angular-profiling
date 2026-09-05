@@ -1,55 +1,55 @@
 # Code guide
 
-This folder preserves the cleaned MATLAB/Python scripts used to document the project workflow. The tested, end-to-end public reference implementation lives in [`src/wheelchair_pipeline`](../src/wheelchair_pipeline/) and is the recommended starting point for a fresh reproduction.
+This folder groups the MATLAB, Python, and notebook components developed for the wheelchair IMU study. The components have different roles: use the public package for a clean end-to-end example, and use the study and support scripts when inspecting the wider workflow.
 
-## Which implementation should I use?
+## Components by role
 
-| Need | Recommended entry point |
-| --- | --- |
-| Run a complete public example | `python scripts/run_public_demo.py` |
-| Adapt the pipeline to an iSen CSV | `wheelchair_pipeline run` or `src/wheelchair_pipeline/` |
-| Inspect the original MATLAB-oriented workflow | `matlab/compute_isen_angle_from_csv.m` and `matlab/codigo_fin_clean.m` |
-| Review Kinovea support trajectories | `matlab/comparacion_kino_isen_clean.m` |
-| Explore older batch utilities | `python/iSen_pcs_clean.py` and `python/summarize_angle_results_clean.py` |
+| Component | Role | Recommended entry point |
+| --- | --- | --- |
+| `src/wheelchair_pipeline/` | Public reference implementation with input checks, manifests, and tests. | `python scripts/run_public_demo.py` |
+| `codes/matlab/PATRONES_FINAL_clean.m` | Participant-level profile plots, excursion summaries, and optional descriptive/correlation tables. | Adapt the local input folder and run in MATLAB. |
+| `codes/matlab/compute_isen_angle_from_csv.m` | Reusable helper for device-defined iSen descriptors from exported CSV files. | Call the function with an explicit descriptor key and options. |
+| `codes/matlab/codigo_fin_clean.m` | Study workflow template for extracting multiple iSen descriptors and saving profile tables. | Review the settings before a local run. |
+| `codes/matlab/comparacion_kino_isen_clean.m` | Kinovea/iSen visual quality-control overlay. | Supply local Kinovea tables when available. |
+| `codes/matlab/automatizacion_clean.m` | Kinovea coordinate-table normalization and support export. | Supply local frontal and sagittal tables. |
+| `codes/python/` | Batch inspection and summary utilities retained from the study workflow. | Review the file-level docstrings before adapting. |
+| `codes/notebooks/` | Compact exploratory examples without participant outputs. | Use the synthetic demo for a tested run. |
+| `examples/synthetic/` | Deterministic data and commands for public reproducibility. | `python scripts/run_public_demo.py` |
 
-## MATLAB reference scripts
+## Public reference implementation
 
-```text
-matlab/
-  compute_isen_angle_from_csv.m   Corrected device-defined iSen angle helper
-  codigo_fin_clean.m              Multi-descriptor angle extraction template
-  comparacion_kino_isen_clean.m   Kinovea/iSen visual quality-control overlay
-  automatizacion_clean.m          Generic Kinovea coordinate-table helper
-  PATRONES_FINAL_clean.m           Profile plotting and descriptive summaries
-```
-
-The MATLAB scripts are templates because exact iSen and Kinovea column names can vary between exports. They use the same documented concepts as the Python reference: neutral-window alignment, a fourth-order 6 Hz low-pass filter, explicit phase review, and transparent descriptive outputs.
-
-The numeric angular variables are device-defined descriptors. They should not be labelled anatomically calibrated joint angles unless a separate calibration and validation procedure has been performed.
-
-## Python support scripts
-
-The older support utilities are retained for continuity with the original public release. They are useful for exploratory batch inspection, but the new package provides stronger input validation, an explicit manifest, phase normalization, and automated tests.
+The package in `src/wheelchair_pipeline/` reads an exported signal table, checks the time vector, applies a fourth-order zero-phase Butterworth filter, computes a device-defined descriptor, derives velocity and acceleration, normalizes configured phases to 100 points, and writes inspectable outputs with a manifest. Its default reference configuration uses a 6 Hz cutoff and a neutral window.
 
 ```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
 python scripts\run_public_demo.py
 python -m unittest discover -s tests -v
 ```
 
+For input schemas and parameter definitions, see [`docs/processing_pipeline.md`](../docs/processing_pipeline.md). For the configuration associated with the manuscript, see [`docs/manuscript_analysis.md`](../docs/manuscript_analysis.md).
+
+## MATLAB study and support scripts
+
+The MATLAB scripts are templates because exact iSen and Kinovea column names can vary between exports. They use local paths for local study files and write generated outputs outside the tracked public tree. Review descriptor names, filter settings, cycle windows, and input columns before adapting them to a new export.
+
+The quantitative angular variables are device-defined descriptors. They should not be labelled anatomically calibrated joint angles unless a separate calibration and validation procedure has been performed.
+
+## Kinovea's role
+
+Kinovea/videogrammetry supports acquisition documentation, synchronization, cycle-boundary review, and visual quality control. The primary quantitative angular descriptors are derived from iSen outputs. The comparison script therefore provides a visual support overlay and does not treat the two modalities as interchangeable measurements.
+
 ## Expected local inputs
 
-For a local study run, keep the restricted acquisition store outside this repository and use de-identified copies of the exported files. A typical X/Y input schema is:
+For a local study run, keep restricted acquisition files outside this repository and use de-identified copies of exported tables. A typical iSen component schema is:
 
 ```text
 time_s, <descriptor>_X, <descriptor>_Y
 ```
 
-Use `--pair-base` when automatic keyword matching is not appropriate. Use `--direct-column` and `--mode direct_resultant` only when the export already contains a resultant angle column.
-
-## Kinovea's role
-
-Kinovea/videogrammetry is used for protocol documentation, synchronization support, cycle-boundary review, and quality control. The main quantitative angular descriptors documented in the study come from iSen outputs. The comparison script therefore produces a visual QC overlay and does not silently replace the primary signal.
+Use an explicit `pairBase`/`--pair-base` when automatic component matching is not appropriate. Use `directColumn`/`--direct-column` and direct-resultant mode only when the export already contains the relevant angle column.
 
 ## Data boundary
 
-The public `data/` folder contains only the de-identified iSen exports and support workbook that were already released. Do not add source video, camera files, recruitment/consent documents, calibration artefacts, or local file paths. See [`docs/public_data.md`](../docs/public_data.md) for the complete boundary.
+The public `data/` folder contains de-identified iSen exports and the support workbook. Source video, camera files, recruitment/consent documents, calibration artefacts, and local path manifests remain outside the public tree. See [`docs/public_data.md`](../docs/public_data.md) before adding any new file.

@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the version you used."
 title: "Wheelchair IMU Angular Profiling"
-version: 1.1.1
+version: 1.1.2
 type: software
-date-released: 2026-09-02
+date-released: 2026-09-05
 authors:
   - family-names: Ñaña
     given-names: Fabian A.

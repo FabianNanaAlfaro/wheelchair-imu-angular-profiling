@@ -1,6 +1,6 @@
-# Processing pipeline
+# Public reference implementation: processing pipeline
 
-This document is the executable contract for the public reference implementation. It describes the processing stages without exposing the private acquisition store.
+This document describes the tested public reference implementation in `src/wheelchair_pipeline/`. It provides a transparent, runnable workflow for exported signal tables without exposing the restricted acquisition store. The manuscript-related analytical configuration is documented separately in [`manuscript_analysis.md`](manuscript_analysis.md).
 
 ## Input contract
 
@@ -86,3 +86,5 @@ The exact demo configuration is visible in the generated manifest. No private pa
 ## iSen and Kinovea roles
 
 iSen is the primary source for the quantitative angular descriptors described in the public project documentation. Kinovea/videogrammetry is retained as supporting evidence for acquisition documentation, temporal alignment, cycle review, and quality control. The two modalities should not be treated as interchangeable measurements.
+
+The reference implementation uses a 6 Hz cutoff, while the manuscript-related configuration uses the settings described in [`manuscript_analysis.md`](manuscript_analysis.md). These workflows are intentionally documented as separate components of the wider project.

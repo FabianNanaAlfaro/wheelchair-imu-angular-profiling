@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2] — 2026-09-05
+
+- clarified the distinction between the manuscript-related analysis and the public reference implementation;
+- added a dedicated description of the manuscript-related processing and statistical configuration; and
+- expanded the code guide and public reproducibility scope.
+
 ## [1.1.1] — 2026-09-02
 
 - replaced the generic workflow banner on the repository front page with the project's acquisition-protocol figures;
@@ -9,11 +15,11 @@
 
 ## [1.1.0] — 2026-09-02
 
-This is the next public companion version for the presented/submitted manuscript.
+This version introduced the public reference implementation and expanded the protocol documentation.
 
 - added a tested Python reference pipeline with a deterministic synthetic demo;
 - documented the acquisition geometry, sensor placement, filtering, derivatives, and phase normalization;
-- added privacy-reviewed protocol figures cropped from the author-provided DPB4 presentation;
+- added protocol figures for the acquisition area, camera arrangement, and sensor placement;
 - clarified that iSen provides the primary quantitative angular descriptors and Kinovea is supporting quality control;
 - added a public-release audit and continuous integration checks;
 - kept the de-identified iSen exports and support workbook already released with the repository;

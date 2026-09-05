@@ -2,7 +2,7 @@
 
 These notebooks preserve the compact exploratory examples from the first public release. They are intentionally data-agnostic and do not contain executed outputs.
 
-For a fully reproducible run with validation and provenance, use:
+For a tested public reference run with validation and provenance, use:
 
 ```powershell
 python scripts\run_public_demo.py
