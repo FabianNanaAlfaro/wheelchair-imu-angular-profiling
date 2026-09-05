@@ -35,18 +35,36 @@ function result = compute_isen_angle_from_csv(csvFile, angleKey, options)
 arguments
     csvFile (1,1) string
     angleKey (1,1) string
-    options.mode (1,1) string = "axis_offset"
-    options.fc (1,1) double = 6
-    options.order (1,1) double = 4
-    options.neutralWindow (1,2) double = [0.2 1.0]
-    options.analysisWindow double = []
-    options.targetNeutral (1,1) double = 0
-    options.scale (1,1) double = 1
-    options.offset (1,1) double = 0
-    options.pairBase (1,1) string = ""
-    options.directColumn (1,1) string = ""
-    options.invertSign (1,1) logical = false
+    options (1,1) struct = struct()
 end
+
+defaults = struct( ...
+    'mode', "axis_offset", ...
+    'fc', 6, ...
+    'order', 4, ...
+    'neutralWindow', [0.2 1.0], ...
+    'analysisWindow', [], ...
+    'targetNeutral', 0, ...
+    'scale', 1, ...
+    'offset', 0, ...
+    'pairBase', "", ...
+    'directColumn', "", ...
+    'invertSign', false);
+optionNames = fieldnames(defaults);
+for i = 1:numel(optionNames)
+    name = optionNames{i};
+    if ~isfield(options, name) || isempty(options.(name))
+        options.(name) = defaults.(name);
+    end
+end
+options.mode = string(options.mode);
+options.pairBase = string(options.pairBase);
+options.directColumn = string(options.directColumn);
+assert(isscalar(options.fc) && options.fc > 0, 'options.fc must be positive.');
+assert(isscalar(options.order) && options.order >= 1 && mod(options.order, 1) == 0, ...
+    'options.order must be a positive integer.');
+assert(numel(options.neutralWindow) == 2 && options.neutralWindow(2) > options.neutralWindow(1), ...
+    'options.neutralWindow must contain an increasing start and end time.');
 
 assert(isfile(csvFile), 'CSV file not found: %s', csvFile);
 T = readtable(csvFile, 'VariableNamingRule', 'preserve');
