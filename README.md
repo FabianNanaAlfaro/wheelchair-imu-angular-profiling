@@ -1,83 +1,34 @@
-# Wheelchair IMU Angular Profiling
+# Wheelchair IMU General Database & Analysis Companion
 
 [![CI](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml/badge.svg)](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-v1.1.2-0f766e)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/release-v1.1.3-0f766e)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code%20license-MIT-111827)](LICENSE)
 
-Public protocol and reproducibility companion for the analysis of right-upper-limb motion during self-propelled manual-wheelchair propulsion. The workflow combines synchronized videogrammetry/Kinovea support with iSen inertial-sensor exports, signal conditioning, device-defined angular descriptors, phase normalization, and descriptive summaries.
+Public de-identified iSen database and analysis companion for upper-limb motion during self-propelled manual-wheelchair propulsion. The repository combines general research materials, analysis utilities, a tested Python reference implementation, MATLAB templates, and synthetic examples.
 
-> **Release status — v1.1.2**
+> **Release status — v1.1.3**
 >
-> This is a versioned companion release for the associated research study. It documents the engineering workflow and safe public examples; it does not publish private recordings or consent material.
+> This repository documents the broader study database and computational workflow. The analysis associated with the paper is described separately so that its configuration is not confused with the other research and development components.
 
-> **Video access.** The source videos are intentionally not uploaded to GitHub. For a scientifically justified, controlled-access request, contact [Fabian A. Ñaña](mailto:fabian.nana@pucp.edu.pe). Any access remains subject to participant consent, ethics requirements, and the research team's review.
+For questions about restricted study materials, contact [Fabian A. Ñaña](mailto:fabian.nana@pucp.edu.pe). Restricted material is not distributed through this repository.
 
 ## Repository scope
 
-This repository documents the broader experimental and computational workflow developed during the wheelchair IMU study. It includes study documentation, de-identified research materials, analysis utilities, supporting video-review tools, legacy/development code, and a tested public reference implementation. Individual components are documented according to their intended role; not every implementation represents the same analytical configuration.
+This repository documents the broader experimental and computational workflow developed during the wheelchair IMU study. It includes study documentation, de-identified research materials, analysis utilities, legacy/development code, and a tested public reference implementation. Individual components are documented according to their intended role; not every implementation represents the same analytical configuration.
+
+## General database
+
+The public database layer contains de-identified iSen exports, a support workbook with coded participant-level material, and derived public summaries. It is intended for method inspection, exploratory reuse, and reproducibility support. The database overview, file structure, and reuse conditions are described in [`docs/database_overview.md`](docs/database_overview.md).
 
 ## Manuscript-related analysis
 
-For the processing configuration and analytical scope associated with the manuscript, see [`docs/manuscript_analysis.md`](docs/manuscript_analysis.md). That page identifies the iSen data source, the role of synchronized video/Kinovea review, the retained-cycle workflow, and the participant-level statistical summaries.
+The paper used a defined iSen-based analytical configuration: 100 Hz acquisition, manufacturer-defined Euler-angle outputs, steady-state cycle selection, eight retained cycles per participant, 10 Hz fourth-order Butterworth filtering, 100-point cycle normalization, participant-level averaging, angular-excursion summaries, and exploratory Spearman correlations. See [`docs/manuscript_analysis.md`](docs/manuscript_analysis.md) for the complete scope and interpretation.
 
-## Acquisition protocol
+## Public reference implementation
 
-These public-facing figures document the movement lane, camera arrangement, marker placement, inertial-sensor placement, and face-obscured tracking examples used in the study.
+The tested Python package in `src/wheelchair_pipeline/` is a transparent reference workflow for exported signal tables. It uses explicit input checks, a fourth-order zero-phase Butterworth filter, device-defined descriptor calculation, numerical derivatives, phase normalization, JSON summaries, and a provenance manifest. Its default reference configuration uses a 6 Hz cutoff and a neutral window.
 
-<table>
-  <tr>
-    <td width="50%" align="center">
-      <img src="assets/protocol/acquisition-area-layout.png" alt="Acquisition area and camera arrangement" width="100%" />
-      <br /><sub><strong>Study geometry.</strong> Delimited movement lane and camera positions.</sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="assets/protocol/camera-setup-floor.png" alt="Two-camera acquisition setup" width="100%" />
-      <br /><sub><strong>Camera setup.</strong> Frontal and sagittal views around the lane.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <img src="assets/protocol/marker-placement-diagram.png" alt="Reflective marker placement diagram" width="100%" />
-      <br /><sub><strong>Marker placement.</strong> Reflective landmarks used for videogrammetry.</sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="assets/protocol/imu-placement-diagram.png" alt="Inertial sensor placement diagram" width="100%" />
-      <br /><sub><strong>IMU placement.</strong> Sensor locations used for the inertial signal.</sub>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <img src="assets/protocol/tracking-frontal-obscured.png" alt="Face-obscured frontal tracking still" width="100%" />
-      <br /><sub><strong>Frontal tracking.</strong> Static, face-obscured protocol illustration.</sub>
-    </td>
-    <td width="50%" align="center">
-      <img src="assets/protocol/tracking-sagittal-obscured.png" alt="Face-obscured sagittal tracking still" width="100%" />
-      <br /><sub><strong>Sagittal tracking.</strong> Static, face-obscured protocol illustration.</sub>
-    </td>
-  </tr>
-</table>
-
-For dimensions, equipment, task repetitions, and the public/private boundary, see the [full acquisition protocol](docs/acquisition_protocol.md).
-
-## Public materials and reproducibility scope
-
-- the acquisition geometry and sensor-placement protocol;
-- the public reference implementation and its deterministic synthetic example;
-- the filtering, alignment, derivative, and phase-normalization decisions;
-- de-identified iSen exports and a de-identified support workbook; and
-- supporting MATLAB, Python, notebook, and Kinovea utilities retained from the wider study workflow.
-
-The public reference implementation can be reproduced end to end with the synthetic example. De-identified analytical materials support inspection and re-use of the published workflow where the relevant files are available. Full acquisition-to-result reproduction is not claimed because source videos and other controlled study files are not distributed.
-
-The public tree deliberately excludes source videos, exported video files, un-obscured participant photographs, consent/recruitment forms, QR codes or phone numbers, calibration artefacts, and local computer paths. Protocol figures are included only when they are suitable for public documentation. A small number of face-obscured tracking stills are retained solely as protocol illustrations; they are not source video or a results release.
-
-## Start here
-
-### Run the public demo
-
-The demo creates a synthetic iSen-like trial, estimates a device-defined angle, applies a fourth-order zero-phase Butterworth low-pass filter, computes angular velocity and acceleration, normalizes propulsion and recovery to 100 points each, and writes a manifest plus summary files.
-
-Use Python 3.10 or newer.
+Run the public demonstration from the repository root:
 
 ```powershell
 python -m venv .venv
@@ -86,104 +37,60 @@ python -m pip install -r requirements.txt
 python scripts\run_public_demo.py
 ```
 
-Outputs are written to `examples/synthetic/outputs/` and are ignored by Git. The input file in `examples/synthetic/imu_trial.csv` is generated data, not a participant record.
+The deterministic example creates 400 samples at 100 Hz and writes processed signal, normalized phase, summary, manifest, and plot outputs under `examples/synthetic/outputs/`. Generated outputs are ignored by Git.
 
-### Verify the release locally
+## Reproducibility scope
 
-```powershell
-python -m unittest discover -s tests -v
-python scripts\audit_public_release.py
-```
-
-The same checks run in GitHub Actions for every push and pull request.
-
-## Workflow at a glance
-
-```mermaid
-flowchart LR
-    A[Protocol setup<br/>6 m × 1.5 m lane] --> B[Frontal + sagittal video<br/>and iSen acquisition]
-    B --> C[Local export<br/>CSV / Kinovea tables]
-    C --> D[Time checks<br/>synchronization + QC]
-    D --> E[Butterworth LPF<br/>fc 6 Hz · order 4]
-    E --> F[Device-defined<br/>angular descriptor]
-    F --> G[Velocity +<br/>acceleration]
-    G --> H[Propulsion / recovery<br/>explicit windows]
-    H --> I[100-point temporal<br/>normalization]
-    I --> J[Metrics + manifest<br/>reproducible outputs]
-```
-
-The event windows remain explicit inputs because cycle-boundary review was supported by synchronized video and signal inspection. This public release does not pretend that a manual quality-control decision is an automatic detector.
+The synthetic example reproduces the public reference implementation end to end. The de-identified iSen files and workbook support inspection and reuse of public research materials. Full reconstruction from original acquisition through every paper result is not claimed because restricted study files are not distributed.
 
 ## Repository map
 
 ```text
-assets/
-  protocol/                       Protocol figures for setup, placement, and tracking
 codes/
-  matlab/                         Cleaned MATLAB reference scripts
-  python/                         Legacy/support utilities retained for continuity
-  notebooks/                      Cleaned exploratory notebooks
+  matlab/                         iSen extraction and participant-level summaries
+  python/                         Exploratory batch and summary utilities
+  notebooks/                      Data-agnostic exploratory notebooks
 data/
   iSen/                           De-identified iSen CSV exports
   profiling_data.xlsx             De-identified support workbook
 docs/
-  acquisition_protocol.md         Setup, equipment, and safe visual documentation
-  manuscript_analysis.md          Configuration associated with the manuscript
-  processing_pipeline.md          Algorithms, schemas, and parameter choices
-  public_data.md                  Public data card and boundaries
-examples/synthetic/
-  imu_trial.csv                   Deterministic generated input
+  database_overview.md            General database scope and file inventory
+  manuscript_analysis.md          Configuration associated with the paper
+  processing_pipeline.md          Public reference implementation
+  public_data.md                  Public data boundary and reuse conditions
+examples/synthetic/               Deterministic generated input and instructions
 src/wheelchair_pipeline/          Tested Python reference implementation
 scripts/                          Demo runner and public-release audit
 tests/                            Offline smoke tests
 ```
 
-## Public reference implementation
+## Methodological interpretation
 
-The Python package in `src/wheelchair_pipeline/` is a tested public reference implementation for transparent signal processing. The primary quantitative descriptors in the study were derived from iSen outputs. Kinovea/videogrammetry supports protocol documentation, cycle-boundary confirmation, quality control, and contextual review; it is not silently substituted for the iSen angle calculation.
+The primary quantitative variables are manufacturer-defined iSen angular outputs. They are device-defined descriptors, not independently validated anatomical joint angles. The study did not include functional anatomical calibration or optical-motion-capture validation of the reported descriptors.
 
-The public Python implementation exposes the same engineering stages with explicit configuration:
+The manuscript-related configuration and the public reference implementation are intentionally documented as separate layers. Other MATLAB, Python, and notebook components are retained as study workflow, development, or supporting analysis utilities and may use different settings according to their intended purpose.
 
-- time is read from the exported signal and checked for monotonic sampling;
-- X/Y components are low-pass filtered with a fourth-order Butterworth filter at 6 Hz;
-- the relevant component can be selected by an explicit pair or by a documented keyword match;
-- a neutral window defines the reference offset;
-- numerical derivatives are computed against the recorded time vector;
-- phase windows are normalized by interpolation to 100 points per phase;
-- outputs carry a JSON manifest so parameters are inspectable after a run.
+## Data availability and privacy
 
-Angles are **device-defined angular descriptors**. They should not be presented as anatomically calibrated joint angles without an additional calibration and validation procedure.
-
-The reference implementation uses a 6 Hz cutoff and explicit neutral-window alignment. The manuscript-related configuration is documented separately because processing parameters vary across workflow components according to their intended purpose.
-
-## Public data and privacy
-
-The current public data are de-identified iSen exports and a de-identified support workbook. Please read [`docs/public_data.md`](docs/public_data.md) before downloading or reusing them. Source-video requests are described in the contact notice at the top of this page.
-
-## People and research context
-
-**Authors:** Fabian A. Ñaña, Fabricio Nava, Victoria E. Abarca, and Dante A. Elias.
-
-**Laboratory:** Laboratorio de Investigación en Biomecánica y Rehabilitación Aplicada (LIBRA), Pontificia Universidad Católica del Perú (PUCP), Lima, Peru.
-
-**Ethics reference:** 143-2024-CEICVyT/PUCP. No consent forms or ethics documents are included in this repository.
+The public tree contains no source acquisition recordings, signed forms, direct identifiers, local computer paths, credentials, or participant names. Participant codes are used where coded research material is necessary. See [`docs/public_data.md`](docs/public_data.md) before reusing or extending the public data layer.
 
 ## Citation
 
-Use the versioned citation in [`CITATION.cff`](CITATION.cff). A compact reference is:
+Use the versioned citation in [`CITATION.cff`](CITATION.cff):
 
-> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU Angular Profiling* (Version 1.1.2) [Code and de-identified support materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
+> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU General Database & Analysis Companion* (Version 1.1.3) [Software and de-identified research materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
 
-No article DOI is asserted by this repository. Add the article DOI to a citation only when it has been formally assigned by the publisher or indexing service.
+No article DOI is asserted by this repository. Add an article DOI only when it has been formally assigned by the publisher or indexing service.
 
 ## Related documentation
 
-- [Acquisition protocol](docs/acquisition_protocol.md)
-- [Processing pipeline](docs/processing_pipeline.md)
+- [General database overview](docs/database_overview.md)
+- [Manuscript-related analysis](docs/manuscript_analysis.md)
+- [Public reference pipeline](docs/processing_pipeline.md)
 - [Public data card](docs/public_data.md)
 - [Code guide](codes/README_CODE.md)
 - [Changelog](CHANGELOG.md)
 
 ## License
 
-The MIT license applies to the code and documentation. The de-identified research data remain subject to the permissions and conditions described in [`docs/public_data.md`](docs/public_data.md).
+The MIT license applies to the code and documentation. De-identified research materials remain subject to the permissions and conditions described in [`docs/public_data.md`](docs/public_data.md).

@@ -14,8 +14,8 @@
 % validated resultant angle column. Keep that choice in the manifest/log of
 % the local run.
 %
-% Pattern windows can be reviewed against the iSen signals and synchronized
-% video support before a local summary is produced.
+% Pattern windows can be reviewed against the iSen signals before a local
+% summary is produced.
 
 clear; clc; close all;
 

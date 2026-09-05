@@ -83,8 +83,8 @@ wheelchair-pipeline run --input examples/synthetic/imu_trial.csv --output exampl
 
 The exact demo configuration is visible in the generated manifest. No private path is needed.
 
-## iSen and Kinovea roles
+## Quantitative source
 
-iSen is the primary source for the quantitative angular descriptors described in the public project documentation. Kinovea/videogrammetry is retained as supporting evidence for acquisition documentation, temporal alignment, cycle review, and quality control. The two modalities should not be treated as interchangeable measurements.
+iSen is the quantitative source for the device-defined angular descriptors described in the public project documentation. The reference implementation operates on exported iSen signal tables and does not re-estimate orientation or anatomical joint angles.
 
 The reference implementation uses a 6 Hz cutoff, while the manuscript-related configuration uses the settings described in [`manuscript_analysis.md`](manuscript_analysis.md). These workflows are intentionally documented as separate components of the wider project.

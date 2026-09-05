@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the version you used."
-title: "Wheelchair IMU Angular Profiling"
-version: 1.1.2
+title: "Wheelchair IMU General Database and Analysis Companion"
+version: 1.1.3
 type: software
 date-released: 2026-09-05
 authors:
@@ -16,10 +16,10 @@ authors:
 repository-code: "https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling"
 license: MIT
 abstract: >-
-  Public protocol and reproducibility companion for device-defined upper-limb
-  angular profiling during self-propelled manual-wheelchair propulsion. The
-  release includes processing code, protocol figures, and de-identified support
-  materials; source video and consent material are not distributed.
+  Public de-identified database and reproducibility companion for device-defined
+  upper-limb angular profiling during self-propelled manual-wheelchair propulsion.
+  The release includes processing code and de-identified support materials;
+  restricted acquisition records and consent material are not distributed.
 keywords:
   - wheelchair propulsion
   - inertial sensors
