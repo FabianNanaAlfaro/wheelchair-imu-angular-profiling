@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.7] — 2026-09-05
+
+- Added deterministic publication figure generation for the supported manuscript outputs.
+- Added numerical figure tests and a figure-level provenance manifest.
+- Clarified that normalized participant profiles are outside the public analytical layer.
+
 ## [1.1.6] — 2026-09-05
 
 - Corrected manuscript-supporting analytical data provenance.

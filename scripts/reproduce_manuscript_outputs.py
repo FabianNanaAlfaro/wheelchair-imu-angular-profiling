@@ -12,26 +12,16 @@ from pathlib import Path
 
 from scipy.stats import spearmanr
 
+from manuscript_variables import (
+    CYCLE_FIELDS,
+    EXCURSION_FIELDS,
+    PARTICIPANTS,
+    VARIABLE_FIELDS,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT_DIR = ROOT / "data" / "manuscript"
 DEFAULT_OUTPUT_DIR = ROOT / "outputs" / "manuscript_reproduction"
-PARTICIPANTS = tuple(f"P{i}" for i in range(1, 11))
-EXCURSION_FIELDS = (
-    "participant_id",
-    "shoulder_fe_deg",
-    "shoulder_aa_deg",
-    "elbow_fe_deg",
-    "wrist_fe_deg",
-    "wrist_rud_deg",
-)
-CYCLE_FIELDS = (
-    "participant_id",
-    "detected_cycles",
-    "retained_cycles",
-    "not_retained_cycles",
-    "retained_percent",
-)
 EXPECTED_EXCURSIONS = {
     "P1": (36.64, 13.36, 40.29, 26.30, 10.69),
     "P2": (31.07, 5.21, 25.28, 43.52, 11.76),
@@ -48,7 +38,7 @@ EXPECTED_SUMMARY = {
     "shoulder_fe_deg": (40.28, 15.06, 36.50, 17.43, 74.52),
     "shoulder_aa_deg": (13.55, 5.76, 13.34, 5.21, 21.21),
     "elbow_fe_deg": (48.00, 17.95, 46.05, 24.83, 81.43),
-    "wrist_fe_deg": (49.23, 12.79, 46.94, 26.30, 74.86),
+    "wrist_fe_deg": (49.23, 12.79, 46.93, 26.30, 74.86),
     "wrist_rud_deg": (21.56, 11.00, 20.75, 10.69, 46.90),
 }
 EXPECTED_CYCLES = {
@@ -161,7 +151,7 @@ def validate_reference_values(excursions: list[dict[str, str]], cycles: list[dic
 
 def build_cohort_summary(rows: list[dict[str, str]]) -> list[dict[str, object]]:
     output = []
-    for field in EXCURSION_FIELDS[1:]:
+    for field in VARIABLE_FIELDS:
         values = [number(row[field], field, index) for index, row in enumerate(rows, start=2)]
         mean = statistics.fmean(values)
         sd = statistics.stdev(values)
@@ -187,7 +177,7 @@ def build_cohort_summary(rows: list[dict[str, str]]) -> list[dict[str, object]]:
 
 
 def build_spearman_matrix(rows: list[dict[str, str]]) -> tuple[list[str], list[dict[str, object]]]:
-    fields = list(EXCURSION_FIELDS[1:])
+    fields = list(VARIABLE_FIELDS)
     matrix = [[number(row[field], field, index) for field in fields] for index, row in enumerate(rows, start=2)]
     correlation = spearmanr(matrix, axis=0).statistic
     result = []

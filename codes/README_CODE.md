@@ -7,7 +7,7 @@ This folder groups the MATLAB, Python, and notebook components developed for the
 | Component | Role | Recommended entry point |
 | --- | --- | --- |
 | `src/wheelchair_pipeline/` | Public reference implementation with input checks, manifests, and tests. | `python scripts/run_public_demo.py` |
-| `codes/matlab/PATRONES_FINAL_clean.m` | Participant-level profile plots, excursion summaries, and optional descriptive/correlation tables. | Adapt the local input folder and run in MATLAB. |
+| `codes/matlab/PATRONES_FINAL_clean.m` | General study/support profile plots, excursion summaries, and optional descriptive/correlation tables. | Adapt the local input folder and run in MATLAB; it is not the manuscript figure entry point. |
 | `codes/matlab/compute_isen_angle_from_csv.m` | Reusable helper for device-defined iSen descriptors from exported CSV files. | Call the function with an explicit descriptor key and options. |
 | `codes/matlab/codigo_fin_clean.m` | Study workflow template for extracting multiple iSen descriptors and saving profile tables. | Review the settings before a local run. |
 | `codes/python/` | Batch inspection and summary utilities retained from the study workflow. | Review the file-level docstrings before adapting. |
@@ -29,6 +29,8 @@ python -m unittest discover -s tests -v
 For input schemas and parameter definitions, see [`docs/processing_pipeline.md`](../docs/processing_pipeline.md). For the configuration associated with the manuscript, see [`docs/manuscript_analysis.md`](../docs/manuscript_analysis.md).
 
 For the public manuscript-level summary inputs and regeneration command, see [`data/manuscript/README.md`](../data/manuscript/README.md) and [`scripts/reproduce_manuscript_outputs.py`](../scripts/reproduce_manuscript_outputs.py).
+
+For the supported publication figures, use [`scripts/generate_manuscript_figures.py`](../scripts/generate_manuscript_figures.py). It owns the canonical Python variable order and generates Figures 5–6 from the manuscript-specific excursion table. `PATRONES_FINAL_clean.m` remains a general MATLAB support template for local study files.
 
 ## MATLAB study and support scripts
 

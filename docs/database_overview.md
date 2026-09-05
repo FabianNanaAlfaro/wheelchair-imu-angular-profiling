@@ -9,6 +9,7 @@ This page describes the public database layer of the wheelchair IMU study. The d
 | `data/iSen/` | De-identified iSen CSV exports organised by coded trial folders. | Inspect exported signal structure and develop analysis code. |
 | `data/profiling_data.xlsx` | De-identified general iSen workbook with coded participant metadata and derived summaries. | Review public tabular material and derived descriptors. |
 | `data/manuscript/` | De-identified analytical files for the manuscript-related summary layer. | Inspect the participant-level inputs used by the reproduction script. |
+| `assets/manuscript/` | Publication-ready Figures 5–6 generated from the manuscript-related excursion table. | Inspect supported figure outputs; no additional source records. |
 | `examples/synthetic/` | Deterministic generated input and reproducible outputs. | Run the reference implementation without research records. |
 
 The coded folders and trial labels are operational identifiers only. They are not names and must not be linked to external identifying information.

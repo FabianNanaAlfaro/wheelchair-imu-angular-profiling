@@ -1,12 +1,12 @@
 # Wheelchair IMU General Database & Analysis Companion
 
 [![CI](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml/badge.svg)](https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-v1.1.6-0f766e)](CHANGELOG.md)
+[![Release](https://img.shields.io/badge/release-v1.1.7-0f766e)](CHANGELOG.md)
 [![License](https://img.shields.io/badge/code%20license-MIT-111827)](LICENSE)
 
 Public de-identified iSen database and analysis companion for upper-limb motion during self-propelled manual-wheelchair propulsion. The repository combines general research materials, analysis utilities, a tested Python reference implementation, MATLAB templates, and synthetic examples.
 
-> **Release status — v1.1.6**
+> **Release status — v1.1.7**
 >
 > This repository documents the broader study database and computational workflow. The analysis associated with the paper is described separately so that its configuration is not confused with the other research and development components.
 
@@ -25,6 +25,8 @@ The public database layer contains de-identified iSen exports, a general workboo
 The paper used a defined iSen-based analytical configuration: 100 Hz acquisition, manufacturer-defined Euler-angle outputs, steady-state cycle selection, eight retained cycles per participant, 10 Hz fourth-order Butterworth filtering, 100-point cycle normalization, participant-level averaging, angular-excursion summaries, and exploratory Spearman correlations. See [`docs/manuscript_analysis.md`](docs/manuscript_analysis.md) for the complete scope and interpretation.
 
 The public manuscript-supporting analytical files and their reproduction command are collected in [`data/manuscript/`](data/manuscript/) and [`scripts/reproduce_manuscript_outputs.py`](scripts/reproduce_manuscript_outputs.py).
+
+Publication-ready Figures 5–6 are generated from that same excursion table by [`scripts/generate_manuscript_figures.py`](scripts/generate_manuscript_figures.py) and are stored in [`assets/manuscript/`](assets/manuscript/). Figures 2–4 are not generated because participant mean normalized profiles are not part of the public analytical layer.
 
 ## Public reference implementation
 
@@ -56,6 +58,8 @@ data/
   iSen/                           De-identified iSen CSV exports
   profiling_data.xlsx             De-identified general iSen workbook
   manuscript/                     Manuscript-supporting analytical summaries
+assets/
+  manuscript/                     Publication-ready Figures 5–6
 docs/
   database_overview.md            General database scope and file inventory
   manuscript_analysis.md          Configuration associated with the paper
@@ -81,7 +85,7 @@ The public tree contains no source acquisition recordings, signed forms, direct 
 
 Use the versioned citation in [`CITATION.cff`](CITATION.cff):
 
-> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU General Database & Analysis Companion* (Version 1.1.6) [Software and de-identified research materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
+> Ñaña, F. A., Nava, F., Abarca, V. E., & Elias, D. A. (2026). *Wheelchair IMU General Database & Analysis Companion* (Version 1.1.7) [Software and de-identified research materials]. GitHub. https://github.com/FabianNanaAlfaro/wheelchair-imu-angular-profiling
 
 No article DOI is asserted by this repository. Add an article DOI only when it has been formally assigned by the publisher or indexing service.
 
@@ -91,6 +95,8 @@ No article DOI is asserted by this repository. Add an article DOI only when it h
 - [Manuscript-related analysis](docs/manuscript_analysis.md)
 - [Manuscript-supporting dataset](data/manuscript/README.md)
 - [Manuscript reproduction script](scripts/reproduce_manuscript_outputs.py)
+- [Manuscript figure generator](scripts/generate_manuscript_figures.py)
+- [Manuscript figures and scope](docs/manuscript_figures.md)
 - [Public reference pipeline](docs/processing_pipeline.md)
 - [Public data card](docs/public_data.md)
 - [Code guide](codes/README_CODE.md)

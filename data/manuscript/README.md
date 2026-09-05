@@ -8,6 +8,7 @@ This directory contains the de-identified public analytical files supporting the
 
 - `participant_level_excursions.csv`: one row per participant and five angular-excursion variables, in degrees.
 - `cycle_traceability.csv`: one row per participant with detected, retained, and not-retained cycle counts. It contains counts only; no individual cycle identifiers are asserted.
+- `../../assets/manuscript/`: validated publication assets for Figures 5 and 6.
 
 Normalized participant mean trajectories and retained-cycle records are not included because their underlying public analytical values cannot be recovered confidently. No synthetic profiles or cycle identifiers are provided.
 
@@ -25,6 +26,14 @@ python scripts\reproduce_manuscript_outputs.py --check
 ```
 
 This regenerates the participant-level excursion table, cohort-level summary, exploratory Spearman matrix, and cycle-traceability summary under `outputs/manuscript_reproduction/`.
+
+The supported figure files are generated separately with:
+
+```powershell
+python scripts\generate_manuscript_figures.py --check --publish-assets
+```
+
+That command generates Figures 5 and 6 from `participant_level_excursions.csv` and records their provenance in `outputs/manuscript_figures/figure_manifest.json`.
 
 ## Boundaries
 

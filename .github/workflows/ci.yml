@@ -22,5 +22,7 @@ jobs:
         run: python scripts/run_public_demo.py
       - name: Reproduce manuscript summaries
         run: python scripts/reproduce_manuscript_outputs.py --check
+      - name: Generate manuscript figures
+        run: python scripts/generate_manuscript_figures.py --check --publish-assets
       - name: Audit public release
         run: python scripts/audit_public_release.py

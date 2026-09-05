@@ -6,7 +6,7 @@ This page documents the analytical configuration associated with the reported st
 
 The paper analysis used manufacturer-provided iSen angular outputs, steady-state propulsion-cycle selection, temporal normalization, participant-level summaries, and exploratory associations among the resulting descriptors.
 
-The public manuscript-supporting files are in [`../data/manuscript/`](../data/manuscript/). The available summaries can be regenerated with [`../scripts/reproduce_manuscript_outputs.py`](../scripts/reproduce_manuscript_outputs.py). The public files do not contain cycle-level boundaries or normalized profile traces, so the reproduction entry point does not claim to regenerate unavailable profile figures.
+The public manuscript-supporting files are in [`../data/manuscript/`](../data/manuscript/). The available summaries can be regenerated with [`../scripts/reproduce_manuscript_outputs.py`](../scripts/reproduce_manuscript_outputs.py), and the supported Figures 5–6 with [`../scripts/generate_manuscript_figures.py`](../scripts/generate_manuscript_figures.py). The public files do not contain cycle-level boundaries or normalized profile traces, so the repository does not claim to regenerate Figures 2–4.
 
 ## Quantitative data source
 

@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this repository, please cite the version you used."
 title: "Wheelchair IMU General Database and Analysis Companion"
-version: 1.1.6
+version: 1.1.7
 type: software
 date-released: 2026-09-05
 authors:
