@@ -51,7 +51,9 @@ def workbook_text_and_issues(path: Path) -> tuple[str, list[str]]:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         for name in sorted(names):
-            if name.startswith(("xl/sharedStrings", "xl/workbook", "xl/worksheets/", "xl/_rels/", "docProps/")):
+            # Worksheet XML is inspected structurally below; numeric signal
+            # values must not be passed through identity-oriented text checks.
+            if name.startswith(("xl/sharedStrings", "xl/workbook", "xl/_rels/", "docProps/")):
                 text_parts.append(archive.read(name).decode("utf-8", errors="ignore"))
 
         if any(name.startswith("xl/media/") for name in names):
