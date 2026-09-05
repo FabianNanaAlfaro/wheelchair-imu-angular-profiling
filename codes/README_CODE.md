@@ -28,6 +28,8 @@ python -m unittest discover -s tests -v
 
 For input schemas and parameter definitions, see [`docs/processing_pipeline.md`](../docs/processing_pipeline.md). For the configuration associated with the manuscript, see [`docs/manuscript_analysis.md`](../docs/manuscript_analysis.md).
 
+For the public manuscript-level summary inputs and regeneration command, see [`data/manuscript/README.md`](../data/manuscript/README.md) and [`scripts/reproduce_manuscript_outputs.py`](../scripts/reproduce_manuscript_outputs.py).
+
 ## MATLAB study and support scripts
 
 The MATLAB scripts are templates because exact iSen column names can vary between exports. They use local paths for local study files and write generated outputs outside the tracked public tree. Review descriptor names, filter settings, cycle windows, and input columns before adapting them to a new export.

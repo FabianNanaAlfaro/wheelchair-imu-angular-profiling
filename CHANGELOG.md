@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.5] — 2026-09-05
+
+- Added a dedicated manuscript-supporting analytical data layer.
+- Added deterministic regeneration of descriptive summaries, angular-excursion summaries, and exploratory Spearman correlations.
+- Strengthened public-data package checks and clarified example-data scope.
+
 ## [1.1.4] — 2026-09-05
 
 - Clarified the public repository boundary around the general iSen database layer.

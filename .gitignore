@@ -59,3 +59,4 @@ recordings/
 *.csv
 !data/iSen/**/*.csv
 !examples/synthetic/imu_trial.csv
+!data/manuscript/*.csv
