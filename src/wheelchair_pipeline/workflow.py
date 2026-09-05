@@ -183,7 +183,7 @@ def run_pipeline(
         plot_path = None
 
     manifest = {
-        "pipeline_version": "1.1.3",
+        "pipeline_version": "1.1.4",
         "input": {"filename": input_path.name, "sha256": _sha256(input_path)},
         "parameters": _config_as_json(config, phase_specs),
         "derived": {"sampling_hz": angle_result.sampling_hz, "axis_used": angle_result.axis_used},

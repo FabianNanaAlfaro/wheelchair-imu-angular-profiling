@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.4] — 2026-09-05
+
+- Clarified the public repository boundary around the general iSen database layer.
+- Removed workbook tabs and embedded media associated with restricted acquisition review.
+- Kept the public IMU summaries and generalized participant metadata, with an explicit workbook scope note.
+
 ## [1.1.3] — 2026-09-05
 
 - reorganized the public repository around the general de-identified iSen database;
